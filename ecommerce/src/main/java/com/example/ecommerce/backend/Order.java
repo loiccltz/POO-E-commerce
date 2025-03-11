@@ -1,4 +1,4 @@
-package ecommerce.src.main.java.com.example.ecommerce.backend;
+package com.example.ecommerce.backend;
 
 public class Order {
     

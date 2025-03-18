@@ -9,6 +9,16 @@
             "projectName": "ecommerce",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-EcommerceBackendApplication<ecommerce-backend>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.backend.ecommerce_backend.EcommerceBackendApplication",
+            "projectName": "ecommerce-backend",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }

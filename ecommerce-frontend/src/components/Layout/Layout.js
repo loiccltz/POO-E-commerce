@@ -81,7 +81,7 @@ class Layout extends React.Component {
                 </CSSTransition>
               </TransitionGroup>
               <footer className={s.contentFooter}>
-                Y - COMMERCE MADE BY <a href="" >Loic & Théo</a>
+                Y - COMMERCE MADE BY Loic & Théo
               </footer>
             </main>
           </Hammer>

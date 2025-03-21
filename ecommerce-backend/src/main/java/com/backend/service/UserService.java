@@ -4,9 +4,6 @@ import com.backend.entity.User;
 import com.backend.exception.UserException;
 
 public interface UserService {
-
-    public User findUserById(Long userId) throws UserException;
-
-    public User findUserProfileByJwt(String jwt) throws UserException;
-
+    User findUserById(Long userId) throws UserException;
+    User findUserProfileByJwt(String jwt) throws UserException;
 }

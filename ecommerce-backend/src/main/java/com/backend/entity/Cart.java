@@ -2,6 +2,7 @@ package com.backend.entity;
 
 import jakarta.persistence.*;
 import java.util.List;
+import java.util.ArrayList;
 
 @Entity
 public class Cart {
@@ -13,29 +14,41 @@ public class Cart {
     private User user;
     
     @ElementCollection
-    private List<CartItem> items;
+    private List<CartItem> items = new ArrayList<>();  // Initialiser la liste
+    
+    // Getters et setters manquants
+    public Long getId() {
+        return id;
+    }
+    
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
+    public User getUser() {
+        return user;
+    }
+    
+    public void setUser(User user) {
+        this.user = user;
+    }
+    
+    public List<CartItem> getItems() {
+        return items;
+    }
+    
+    public void setItems(List<CartItem> items) {
+        this.items = items;
+    }
+
+    public void removeProduct(Product product) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'removeProduct'");
+    }
 
     public void addProduct(Product product, int quantity) {
-        items.add(new CartItem(product, quantity));
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'addProduct'");
     }
-    public void removeProduct(Product product) {
-        items.removeIf(item -> item.getProduct().equals(product));
-    }
-    public double calculateTotal() {
-        return items.stream().mapToDouble(item -> item.getProduct().getPrice() * item.getQuantity()).sum();
-    }
-}
-
-@Embeddable
-class CartItem {
-    @ManyToOne
-    private Product product;
-    private int quantity;
-
-    public CartItem(Product product, int quantity) {
-        this.product = product;
-        this.quantity = quantity;
-    }
-    public Product getProduct() { return product; }
-    public int getQuantity() { return quantity; }
+    
 }

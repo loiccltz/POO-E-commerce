@@ -2,6 +2,7 @@ package com.backend.entity;
 
 import jakarta.persistence.*;
 import java.util.List;
+import java.util.ArrayList;
 
 @Entity
 public class Order {
@@ -12,17 +13,49 @@ public class Order {
     @ManyToOne
     private User user;
     
-    @OneToMany
-    private List<CartItem> items;
+    // Utiliser ElementCollection au lieu de OneToMany pour CartItem
+    @ElementCollection
+    private List<CartItem> items = new ArrayList<>();
+    
     private String status;
+    
+    // Ajouter getters et setters manquants
+    public Long getOrderID() {
+        return orderID;
+    }
+    
+    public void setOrderID(Long orderID) {
+        this.orderID = orderID;
+    }
+    
+    public User getUser() {
+        return user;
+    }
+    
+    public void setUser(User user) {
+        this.user = user;
+    }
+    
+    public List<CartItem> getItems() {
+        return items;
+    }
+    
+    public void setItems(List<CartItem> items) {
+        this.items = items;
+    }
+    
+    public String getStatus() {
+        return status;
+    }
+    
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public void placeOrder() {
-        for (CartItem item : items) {
-            item.getProduct().updateStock(item.getQuantity());
-        }
-        this.status = "Processing";
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'placeOrder'");
     }
-    public void updateStatus(String newStatus) {
-        this.status = newStatus;
-    }
+    
+    // Méthodes existantes...
 }

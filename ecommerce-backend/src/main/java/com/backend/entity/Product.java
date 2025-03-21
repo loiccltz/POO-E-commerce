@@ -1,6 +1,8 @@
 package com.backend.entity;
 
 import jakarta.persistence.*;
+import java.util.HashMap;
+import java.util.Map;
 
 @Entity
 public class Product {
@@ -11,7 +13,17 @@ public class Product {
     private double price;
     private int stockQuantity;
 
-    // Getters and Setters
+    // Nouvelle méthode getProductDetails()
+    public Map<String, Object> getProductDetails() {
+        Map<String, Object> details = new HashMap<>();
+        details.put("id", productID);
+        details.put("name", productName);
+        details.put("price", price);
+        details.put("stockQuantity", stockQuantity);
+        return details;
+    }
+
+    // Getters et Setters existants
     public String getProductName() {
         return productName;
     }
@@ -38,5 +50,13 @@ public class Product {
 
     public void updateStock(int quantity) {
         this.stockQuantity -= quantity;
+    }
+    
+    public Long getProductID() {
+        return productID;
+    }
+    
+    public void setProductID(Long productID) {
+        this.productID = productID;
     }
 }

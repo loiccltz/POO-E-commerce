@@ -1,9 +1,10 @@
-package com.backend.entity;
+package com.backend.ecommerce_backend.entity;
 
 import jakarta.persistence.*;
-import java.util.List;
+//import java.util.List;
 
 @Entity
+@Table(name = "users") // user est deja réservé dans SQL 
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,10 +13,10 @@ public class User {
     private String email;
     private String password;
 
-    private String role;
+    //private String role;
 
-    @OneToMany(mappedBy = "user")
-    private List<Order> orderHistory;
+    // @OneToMany(mappedBy = "user")
+    // private List<Order> orderHistory;
 
     // Getters and Setters
     public String getUsername() {
@@ -42,7 +43,7 @@ public class User {
         this.password = password;
     }
 
-    public List<Order> getOrderHistory() {
-        return orderHistory;
-    }
+    // public List<Order> getOrderHistory() {
+    //     return orderHistory;
+    // }
 }

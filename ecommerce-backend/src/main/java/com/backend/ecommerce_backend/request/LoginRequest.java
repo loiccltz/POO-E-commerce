@@ -1,4 +1,4 @@
-package com.backend.request;
+package com.backend.ecommerce_backend.request;
 
 public class LoginRequest {
     

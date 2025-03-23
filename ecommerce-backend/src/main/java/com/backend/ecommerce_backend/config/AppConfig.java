@@ -1,4 +1,4 @@
-package com.backend.config;
+package com.backend.ecommerce_backend.config;
 
 import java.util.Arrays;
 import java.util.Collections;

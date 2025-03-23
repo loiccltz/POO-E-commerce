@@ -1,4 +1,4 @@
-package com.backend.entity;
+package com.backend.ecommerce_backend.entity;
 
 import jakarta.persistence.*;
 

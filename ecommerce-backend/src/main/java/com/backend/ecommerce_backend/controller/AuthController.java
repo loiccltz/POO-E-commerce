@@ -1,4 +1,4 @@
-package com.backend.controller;
+package com.backend.ecommerce_backend.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.backend.config.JwtProvider;
-import com.backend.entity.User;
-import com.backend.exception.UserException;
-import com.backend.repository.UserRepository;
-import com.backend.request.LoginRequest;
-import com.backend.response.AuthResponse;
-import com.backend.service.CustomUserServiceImplementation;
+import com.backend.ecommerce_backend.config.JwtProvider;
+import com.backend.ecommerce_backend.entity.User;
+import com.backend.ecommerce_backend.exception.UserException;
+import com.backend.ecommerce_backend.repository.UserRepository;
+import com.backend.ecommerce_backend.request.LoginRequest;
+import com.backend.ecommerce_backend.response.AuthResponse;
+import com.backend.ecommerce_backend.service.CustomUserServiceImplementation;
 
 @RestController
 @RequestMapping("/auth")
@@ -30,10 +30,11 @@ public class AuthController {
     private PasswordEncoder passwordEncoder;
     private CustomUserServiceImplementation customUserService;
 
-    public AuthController(UserRepository userRepository, CustomUserServiceImplementation customUserService, PasswordEncoder passwordEncoder) {
+    public AuthController(UserRepository userRepository, CustomUserServiceImplementation customUserService, PasswordEncoder passwordEncoder, JwtProvider jwtProvider) {
         this.userRepository = userRepository;
         this.customUserService=customUserService;
         this.passwordEncoder=passwordEncoder;
+        this.JwtProvider=jwtProvider;
     }
 
     @PostMapping("/register")

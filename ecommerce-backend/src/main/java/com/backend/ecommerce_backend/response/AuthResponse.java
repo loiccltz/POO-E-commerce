@@ -1,4 +1,4 @@
-package com.backend.response;
+package com.backend.ecommerce_backend.response;
 
 public class AuthResponse {
 

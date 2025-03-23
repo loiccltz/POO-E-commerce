@@ -1,4 +1,4 @@
-package com.backend.service;
+package com.backend.ecommerce_backend.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,8 +9,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.backend.entity.User;
-import com.backend.repository.UserRepository;
+import com.backend.ecommerce_backend.entity.User;
+import com.backend.ecommerce_backend.repository.UserRepository;
 
 @Service
 public class CustomUserServiceImplementation implements UserDetailsService {

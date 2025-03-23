@@ -1,7 +1,7 @@
-package com.backend.service;
+package com.backend.ecommerce_backend.service;
 
-import com.backend.entity.User;
-import com.backend.exception.UserException;
+import com.backend.ecommerce_backend.entity.User;
+import com.backend.ecommerce_backend.exception.UserException;
 
 public interface UserService {
 

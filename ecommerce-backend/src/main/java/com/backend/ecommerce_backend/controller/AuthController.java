@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -64,12 +65,14 @@ public class AuthController {
 
         String token = JwtProvider.generateToken(authentication);
 
-        AuthResponse authResponse = new AuthResponse(token, "la connexion a bien marché");
+        AuthResponse authResponse = new AuthResponse();
+        authResponse.setJwt(token);
+        authResponse.setMessage("connexion effectué");
 
         return new ResponseEntity<AuthResponse>(authResponse, HttpStatus.CREATED);
     }
 
-    @PostMapping("/login")
+    @GetMapping("/login")
     public ResponseEntity<AuthResponse> loginUserHandler(@RequestBody LoginRequest loginRequest) {
 
         String username = loginRequest.getUsername();

@@ -35,10 +35,6 @@ public class AppConfig {
                 }
             }))
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/**").authenticated()
-                .anyRequest().permitAll()
-            )
             .addFilterBefore(new JwtValidator(), BasicAuthenticationFilter.class);
 
         return http.build();

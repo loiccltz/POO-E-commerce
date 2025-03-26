@@ -1,17 +1,38 @@
 package com.backend.ecommerce_backend.entity;
 
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productID;
+    
     private String productName;
     private double price;
     private int stockQuantity;
 
+    // Default constructor
+    public Product() {
+    }
+
+    // Parameterized constructor
+    public Product(String productName, double price, int stockQuantity) {
+        this.productName = productName;
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+    }
+
     // Getters and Setters
+    public Long getProductID() {
+        return productID;
+    }
+
+    public void setProductID(Long productID) {
+        this.productID = productID;
+    }
+
     public String getProductName() {
         return productName;
     }
@@ -36,7 +57,48 @@ public class Product {
         this.stockQuantity = stockQuantity;
     }
 
+    // Remove or modify the getProductDetails method
+    @JsonIgnore
+    public ProductDetails getProductDetails() {
+        return new ProductDetails(this.productID, this.productName, this.price, this.stockQuantity);
+    }
+
+    // Remove or comment out the nested ProductDetails class if not needed
+    public static class ProductDetails {
+        private Long productID;
+        private String productName;
+        private double price;
+        private int stockQuantity;
+
+        public ProductDetails(Long productID, String productName, double price, int stockQuantity) {
+            this.productID = productID;
+            this.productName = productName;
+            this.price = price;
+            this.stockQuantity = stockQuantity;
+        }
+
+        // Getters
+        public Long getProductID() {
+            return productID;
+        }
+
+        public String getProductName() {
+            return productName;
+        }
+
+        public double getPrice() {
+            return price;
+        }
+
+        public int getStockQuantity() {
+            return stockQuantity;
+        }
+    }
+
     public void updateStock(int quantity) {
+        if (quantity > this.stockQuantity) {
+            throw new IllegalArgumentException("Insufficient stock");
+        }
         this.stockQuantity -= quantity;
     }
 }

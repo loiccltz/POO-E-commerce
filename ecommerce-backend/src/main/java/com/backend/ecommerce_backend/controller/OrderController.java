@@ -22,18 +22,21 @@ public class OrderController {
     }
 
     @PostMapping("/place")
-    public ResponseEntity<Order> placeOrder(@RequestParam Long userId) 
+    public ResponseEntity<Order> placeOrder(@RequestBody PlaceOrderRequest request) 
         throws UserException, CartException, OrderException {
-        Order order = orderService.placeOrder(userId);
+        Order order = orderService.placeOrder(request.getUserId());
         return new ResponseEntity<>(order, HttpStatus.CREATED);
     }
 
     @PutMapping("/{orderId}/status")
     public ResponseEntity<Order> updateOrderStatus(
         @PathVariable Long orderId, 
-        @RequestParam Order.OrderStatus newStatus
+        @RequestBody UpdateOrderStatusRequest request
     ) throws OrderException {
-        Order updatedOrder = orderService.updateOrderStatus(orderId, newStatus);
+        Order updatedOrder = orderService.updateOrderStatus(
+            orderId, 
+            request.getNewStatus()
+        );
         return new ResponseEntity<>(updatedOrder, HttpStatus.OK);
     }
 
@@ -49,5 +52,31 @@ public class OrderController {
         throws OrderException {
         Order order = orderService.getOrderById(orderId);
         return new ResponseEntity<>(order, HttpStatus.OK);
+    }
+
+    // Classes internes pour les requêtes
+
+    public static class PlaceOrderRequest {
+        private Long userId;
+
+        public Long getUserId() {
+            return userId;
+        }
+
+        public void setUserId(Long userId) {
+            this.userId = userId;
+        }
+    }
+
+    public static class UpdateOrderStatusRequest {
+        private Order.OrderStatus newStatus;
+
+        public Order.OrderStatus getNewStatus() {
+            return newStatus;
+        }
+
+        public void setNewStatus(Order.OrderStatus newStatus) {
+            this.newStatus = newStatus;
+        }
     }
 }

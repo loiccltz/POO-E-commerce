@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.backend.ecommerce_backend.config.JwtProvider;
+import com.backend.ecommerce_backend.entity.RegularUser;
 import com.backend.ecommerce_backend.entity.User;
 import com.backend.ecommerce_backend.exception.UserException;
 import com.backend.ecommerce_backend.repository.UserRepository;
@@ -60,41 +61,36 @@ public class AuthController {
                 description = "Email déjà utilisé"
             )
         }
-    )
-    public ResponseEntity<AuthResponse> createUserHandler(@RequestBody User user) throws UserException {
+    )public ResponseEntity<AuthResponse> createUserHandler(@RequestBody RegularUser user) throws UserException {
 
-        String email = user.getEmail();
-        String passsword = user.getPassword();
-        String username = user.getUsername();
+    String email = user.getEmail();
+    String password = user.getPassword();
+    String username = user.getUsername();
 
-        User isEmailExist = userRepository.findByEmail(email);
+    User isEmailExist = userRepository.findByEmail(email);
 
-        if (isEmailExist != null) {
-            throw new UserException("Email deja utilisé par un autre compte");
-        }
-
-        User createdUser = new User();
-
-        createdUser.setEmail(email);
-        createdUser.setUsername(username);
-        createdUser.setPassword(passwordEncoder.encode(passsword));
-
-        User savedUser = userRepository.save(createdUser);
-
-        Authentication authentication = new UsernamePasswordAuthenticationToken(savedUser.getEmail(),
-                savedUser.getPassword());
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        String token = JwtProvider.generateToken(authentication);
-
-        AuthResponse authResponse = new AuthResponse();
-        authResponse.setJwt(token);
-        authResponse.setMessage("connexion effectué");
-
-        return new ResponseEntity<AuthResponse>(authResponse, HttpStatus.CREATED);
+    if (isEmailExist != null) {
+        throw new UserException("Email deja utilisé par un autre compte");
     }
 
-    @GetMapping("/login")
+    RegularUser createdUser = new RegularUser(username, email, passwordEncoder.encode(password));
+
+    User savedUser = userRepository.save(createdUser);
+
+    Authentication authentication = new UsernamePasswordAuthenticationToken(savedUser.getEmail(),
+            savedUser.getPassword());
+    SecurityContextHolder.getContext().setAuthentication(authentication);
+
+    String token = JwtProvider.generateToken(authentication);
+
+    AuthResponse authResponse = new AuthResponse();
+    authResponse.setJwt(token);
+    authResponse.setMessage("connexion effectué");
+
+    return new ResponseEntity<AuthResponse>(authResponse, HttpStatus.CREATED);
+}
+
+    @PostMapping("/login")
     @Operation(
         summary = "Connexion", 
         description = "Connexion",

@@ -1,11 +1,13 @@
 package com.backend.ecommerce_backend.entity;
 
+import java.math.BigDecimal;
+
 import jakarta.persistence.*;
 //import java.util.List;
 
 @Entity
 @Table(name = "users") // user est deja réservé dans SQL 
-public class User {
+public abstract class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,6 +21,10 @@ public class User {
     // private List<Order> orderHistory;
 
     // Getters and Setters
+
+     public abstract BigDecimal applyDiscount(BigDecimal originalPrice);
+
+
     public String getUsername() {
         return username;
     }

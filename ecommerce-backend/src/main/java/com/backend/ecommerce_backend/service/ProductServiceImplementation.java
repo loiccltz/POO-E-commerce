@@ -30,7 +30,7 @@ public class ProductServiceImplementation implements ProductService {
         Optional<Product> existingProduct = productRepository.findById(product.getProductID());
         
         if (existingProduct.isEmpty()) {
-            throw new ProductException("Product not found with ID: " + product.getProductID());
+            throw new ProductException("Le produit avec cette id n'a pas été trouvé " + product.getProductID());
         }
         
         return productRepository.save(product);
@@ -42,7 +42,7 @@ public class ProductServiceImplementation implements ProductService {
         Optional<Product> existingProduct = productRepository.findById(productId);
         
         if (existingProduct.isEmpty()) {
-            throw new ProductException("Product not found with ID: " + productId);
+            throw new ProductException("Produit avec cette ID non trouvé : " + productId);
         }
         
         productRepository.deleteById(productId);
@@ -51,7 +51,7 @@ public class ProductServiceImplementation implements ProductService {
     @Override
     public Product findProductById(Long productId) throws ProductException {
         return productRepository.findById(productId)
-            .orElseThrow(() -> new ProductException("Product not found with ID: " + productId));
+            .orElseThrow(() -> new ProductException("Produit avec cette id non trouvé: " + productId));
     }
 
     @Override
@@ -64,7 +64,7 @@ public class ProductServiceImplementation implements ProductService {
         Product product = productRepository.findByProductName(productName);
         
         if (product == null) {
-            throw new ProductException("Product not found with name: " + productName);
+            throw new ProductException("Produit avec ce nom non trouvé: " + productName);
         }
         
         return product;

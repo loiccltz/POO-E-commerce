@@ -13,11 +13,10 @@ public class Product {
     private double price;
     private int stockQuantity;
 
-    // Default constructor
+
     public Product() {
     }
 
-    // Parameterized constructor
     public Product(String productName, double price, int stockQuantity) {
         this.productName = productName;
         this.price = price;
@@ -57,13 +56,12 @@ public class Product {
         this.stockQuantity = stockQuantity;
     }
 
-    // Remove or modify the getProductDetails method
     @JsonIgnore
     public ProductDetails getProductDetails() {
         return new ProductDetails(this.productID, this.productName, this.price, this.stockQuantity);
     }
 
-    // Remove or comment out the nested ProductDetails class if not needed
+
     public static class ProductDetails {
         private Long productID;
         private String productName;

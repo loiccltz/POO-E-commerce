@@ -22,8 +22,15 @@ import com.backend.ecommerce_backend.request.LoginRequest;
 import com.backend.ecommerce_backend.response.AuthResponse;
 import com.backend.ecommerce_backend.service.CustomUserServiceImplementation;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+
 @RestController
 @RequestMapping("/auth")
+@Tag(name = "Authentication", description = "Operation de connexion et inscription")
 public class AuthController {
 
     private UserRepository userRepository;
@@ -39,6 +46,21 @@ public class AuthController {
     }
 
     @PostMapping("/register")
+    @Operation(
+        summary = "enregistre un nouvel utilisateur", 
+        description = "enregistre un nouvel utilisateur",
+        responses = {
+            @ApiResponse(
+                responseCode = "201", 
+                description = "Utilisateur enregistré",
+                content = @Content(schema = @Schema(implementation = AuthResponse.class))
+            ),
+            @ApiResponse(
+                responseCode = "400", 
+                description = "Email déjà utilisé"
+            )
+        }
+    )
     public ResponseEntity<AuthResponse> createUserHandler(@RequestBody User user) throws UserException {
 
         String email = user.getEmail();
@@ -73,6 +95,21 @@ public class AuthController {
     }
 
     @GetMapping("/login")
+    @Operation(
+        summary = "Connexion", 
+        description = "Connexion",
+        responses = {
+            @ApiResponse(
+                responseCode = "201", 
+                description = "Connecté",
+                content = @Content(schema = @Schema(implementation = AuthResponse.class))
+            ),
+            @ApiResponse(
+                responseCode = "401", 
+                description = "Mot de passe ou identifiant invalide"
+            )
+        }
+    )
     public ResponseEntity<AuthResponse> loginUserHandler(@RequestBody LoginRequest loginRequest) {
 
         String username = loginRequest.getUsername();
@@ -102,5 +139,4 @@ public class AuthController {
 
         return new UsernamePasswordAuthenticationToken( userDetails, null, userDetails.getAuthorities());
     }
-
 }

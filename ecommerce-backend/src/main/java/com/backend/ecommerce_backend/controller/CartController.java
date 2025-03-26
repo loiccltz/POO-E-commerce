@@ -9,6 +9,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+
 // DTO pour ajouter un produit au panier
 class AddToCartRequest {
     private Long userId;
@@ -43,6 +49,7 @@ class AddToCartRequest {
 
 @RestController
 @RequestMapping("/api/cart")
+@Tag(name = "Panier", description = "Route concernant le panier")
 public class CartController {
     
     private final CartService cartService;
@@ -52,6 +59,17 @@ public class CartController {
     }
 
     @PostMapping("/add")
+    @Operation(
+        summary = "ajouter un produit au panier", 
+        description = "ajouter un produit au panier",
+        responses = {
+            @ApiResponse(
+                responseCode = "200", 
+                description = "produit ajouter au panier",
+                content = @Content(schema = @Schema(implementation = Cart.class))
+            )
+        }
+    )
     public ResponseEntity<Cart> addProductToCart(
         @RequestBody AddToCartRequest request
     ) throws UserException, ProductException, CartException {
@@ -64,6 +82,17 @@ public class CartController {
     }
 
     @DeleteMapping("/remove")
+    @Operation(
+        summary = "Suprrime un produit du panier", 
+        description = "Suprrime un produit du panier",
+        responses = {
+            @ApiResponse(
+                responseCode = "200", 
+                description = "Supprimé",
+                content = @Content(schema = @Schema(implementation = Cart.class))
+            )
+        }
+    )
     public ResponseEntity<Cart> removeProductFromCart(
         @RequestBody AddToCartRequest request
     ) throws UserException, ProductException, CartException {
@@ -75,6 +104,17 @@ public class CartController {
     }
 
     @GetMapping("/{userId}")
+    @Operation(
+        summary = "Recupere le panier d'un utilisateur", 
+        description = "Recupere le panier d'un utilisateur",
+        responses = {
+            @ApiResponse(
+                responseCode = "200", 
+                description = "Recupere le panier d'un utilisateur",
+                content = @Content(schema = @Schema(implementation = Cart.class))
+            )
+        }
+    )
     public ResponseEntity<Cart> getCartByUser(@PathVariable Long userId) 
         throws UserException, CartException {
         Cart cart = cartService.getCartByUser(userId);

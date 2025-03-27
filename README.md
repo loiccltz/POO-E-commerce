@@ -44,9 +44,9 @@ Nous utilisons Springdoc OpenAPI pour générer la documentation de l API.
 
 Une fois le backend démarré, vous pouvez accéder à la documentation Swagger UI ici :
 
-JSON brut : http://localhost:8080/v3/api-docs
+JSON brut : http://localhost:5454/v3/api-docs
 
-Interface Swagger UI : http://localhost:8080/swagger-ui/index.html
+Interface Swagger UI : http://localhost:5454/swagger-ui/index.html
 
 ## Remarque
 - Assurez-vous que le backend est bien démarré avant de lancer le frontend.
